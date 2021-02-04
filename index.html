@@ -1,72 +1,64 @@
-<style>
-    /* css */
-
-
-
-
-</style>
-
-
 <html>
-<!-- html -->
+<head>
+<link rel="stylesheet" href="Style.CSS">
+</head>
 
-    <body style="text-align: center; background:indianred">
-
-
-        <h1>Squish.io</h1>
-      
-        <br><br><br>
-
-        <img id="trump" style="height:400px" src="https://images-ext-2.discordapp.net/external/yl18Cu0VYEPjCRcz6hRTw_VpRcK2SQGQbugr3O0gDC0/https/www.dw.com/image/55598269_401.jpg?width=400&height=225">
+<body>
 
 
+    <div id="CounterBox">
 
-        <h2 id="word"></h2>
+    </div>
 
-        <button onclick="shrinkImage()">Shrinker</button>
+    <button class="button1" onclick="dosomethingelse()">
+        LOWER COUNT
+    </button>
 
-    </body>
+    <button class="button2"onclick="dosomething()">
+        ADD COUNT
+    </button>
+
+
+
+</body>
+
+
+
+<script>
+
+var Counter=0
+console.log (Counter)
+
+document.getElementById("CounterBox").innerText=Counter
+
+function dosomething(){
+var CounterBox=document.getElementById("CounterBox")
+Counter=Counter+1
+CounterBox.innerText=Counter}
+
+
+function dosomethingelse(){
+var CounterBox=document.getElementById("CounterBox")
+Counter=Counter-1
+CounterBox.innerText=Counter}
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
 
 
 
 
 </html>
-
-
-
-<script>
-// javescript
-
-    document.body.onload = async function (e)  {
-        var words = ["calculator", "cream", "apples", "headphones"]
-        var word = words[Math.floor(Math.random() * words.length )];
-        var underscore = " "
-        var secretWord = document.getElementById("word")
-
-        for (var i = 0; i < word.length; i++){
-            if (word[i] === ' '){
-                underscore += `  `
-            }else{           
-            underscore += " _ "
-                
-            }
-        }
-        secretWord.textContent = underscore;
-    }
-
-
-    function shrinkImage(){
-        var image = document.getElementById("trump")
-
-        image.width = image.width * .9;
-
-        if (image.width < 200) {
-            alert("You win!");
-            image.width = 600;
-        }
-
-    }
-
-
-
-</script>
