@@ -1,72 +1,86 @@
-<style>
-    /* css */
-
-
-
-
-</style>
-
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <html>
-<!-- html -->
 
-    <body style="text-align: center; background:indianred">
+    <body style="background-color: lightskyblue; text-align: center">
 
-
-        <h1>Squish.io</h1>
-      
-        <br><br><br>
-
-        <img id="trump" style="height:400px" src="https://images-ext-2.discordapp.net/external/yl18Cu0VYEPjCRcz6hRTw_VpRcK2SQGQbugr3O0gDC0/https/www.dw.com/image/55598269_401.jpg?width=400&height=225">
+        <br>
+        </br>
 
 
+        <button onclick="getSong('hillsong')">
+            Click me to test
+        </button>
 
-        <h2 id="word"></h2>
+        <br>
+        </br>
 
-        <button onclick="shrinkImage()">Shrinker</button>
+
+        <audio controls id="song"></audio>
+
+
+        <br>
+        <br>
+
+
+
+        <input id="input">Guess the song</input>
+
+        <h2 id="victory" style="visibility: hidden;">You Are Correct!</h2>
+        <h3 id="incorrect" style="visibility: hidden">You Are Wrong (You Suck)</h3>
+        <button onclick="guessSong()">Click to Submit</button>
 
     </body>
 
+    <script>
 
+        var songName = "";
+
+
+
+        function getSong(band) {
+            var url = "https://itunes.apple.com/search?term=" + band
+
+            $.ajax({
+      url: url,
+      jsonp: "callback",
+      dataType: "jsonp",
+    }).done(function (data) {
+      console.log(data);
+ 
+       var audio = document.getElementById("song");
+
+       var songNumber = Math.floor(Math.random() * data.results.length); //gives us a number between 0 and 49 
+
+
+       audio.src = data.results[songNumber].previewUrl;
+       audio.volume = .5;
+       audio.play();
+
+        songName = data.results[songNumber].trackName;
+        console.log(songName);
+
+
+    });
+}
+
+    function guessSong(){
+        var input = document.getElementById("input");
+
+        var victory = document.getElementById("victory")
+        var incorrect = document.getElementById("incorrect")
+
+
+        if (input.value.toLowerCase() == songName.toLowerCase()){
+            victory.style.visibility = "visible";
+            incorrect.style.visibility = "hidden";
+        }else{
+            victory.style.visibility = "hidden";
+            incorrect.style.visibility = "visible";
+        }
+    }
+   
+    </script>
 
 
 </html>
-
-
-
-<script>
-// javescript
-
-    document.body.onload = async function (e)  {
-        var words = ["calculator", "cream", "apples", "headphones"]
-        var word = words[Math.floor(Math.random() * words.length )];
-        var underscore = " "
-        var secretWord = document.getElementById("word")
-
-        for (var i = 0; i < word.length; i++){
-            if (word[i] === ' '){
-                underscore += `  `
-            }else{           
-            underscore += " _ "
-                
-            }
-        }
-        secretWord.textContent = underscore;
-    }
-
-
-    function shrinkImage(){
-        var image = document.getElementById("trump")
-
-        image.width = image.width * .9;
-
-        if (image.width < 200) {
-            alert("You win!");
-            image.width = 600;
-        }
-
-    }
-
-
-
-</script>
